@@ -1,0 +1,328 @@
+EESchema Schematic File Version 2  date Sa 06 Sep 2014 11:27:09 CEST
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:special
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:micha_custom
+LIBS:PIEZO-ELEMENT-2_TERMINAL_RevE_Date15jun2010
+LIBS:project-cache
+EELAYER 25  0
+EELAYER END
+$Descr A4 11700 8267
+encoding utf-8
+Sheet 1 1
+Title ""
+Date "6 sep 2014"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L CONN_1 P?
+U 1 1 540AD36C
+P 5850 2750
+F 0 "P?" H 5930 2750 40  0000 L CNN
+F 1 "CONN_1" H 5850 2805 30  0001 C CNN
+	1    5850 2750
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_1 P?
+U 1 1 540AD36B
+P 5850 2850
+F 0 "P?" H 5930 2850 40  0000 L CNN
+F 1 "CONN_1" H 5850 2905 30  0001 C CNN
+	1    5850 2850
+	-1   0    0    1   
+$EndComp
+Text Label 3900 5150 0    60   ~ 0
+vcc
+$Comp
+L CONN_1 P10
+U 1 1 540AD021
+P 8050 3900
+F 0 "P10" H 8130 3900 40  0000 L CNN
+F 1 "CONN_1" H 8050 3955 30  0001 C CNN
+	1    8050 3900
+	1    0    0    -1  
+$EndComp
+Connection ~ 3750 4100
+Wire Wire Line
+	3750 3800 3750 4100
+Wire Wire Line
+	3700 5800 3500 5800
+Wire Wire Line
+	4200 5800 4350 5800
+Connection ~ 6700 5700
+Wire Wire Line
+	6700 5800 6950 5800
+Connection ~ 6700 5500
+Wire Wire Line
+	6700 5600 6950 5600
+Connection ~ 7650 4400
+Wire Wire Line
+	7350 4400 7900 4400
+Connection ~ 7650 3900
+Wire Wire Line
+	7900 3900 7350 3900
+Wire Wire Line
+	4600 5150 5100 5150
+Wire Wire Line
+	4650 4400 4150 4400
+Wire Wire Line
+	4650 4000 4150 4000
+Wire Wire Line
+	3100 4550 2700 4550
+Wire Wire Line
+	4650 4100 3700 4100
+Wire Wire Line
+	3100 4100 2700 4100
+Wire Wire Line
+	4650 3900 4150 3900
+Wire Wire Line
+	4650 4300 4150 4300
+Wire Wire Line
+	3700 4550 3700 4200
+Wire Wire Line
+	3700 4200 4650 4200
+Wire Wire Line
+	4300 5150 3900 5150
+Wire Wire Line
+	7650 3900 7650 3950
+Wire Wire Line
+	6950 5400 6700 5400
+Wire Wire Line
+	6700 5500 6950 5500
+Wire Wire Line
+	6700 5700 6950 5700
+Connection ~ 6700 5600
+Wire Wire Line
+	6700 5400 6700 6000
+Connection ~ 6700 5800
+Connection ~ 7800 5800
+Wire Wire Line
+	7800 6000 7800 5400
+Connection ~ 7800 5600
+Wire Wire Line
+	7800 5700 8050 5700
+Wire Wire Line
+	7800 5500 8050 5500
+Wire Wire Line
+	7800 5400 8050 5400
+Wire Wire Line
+	7800 5600 8050 5600
+Connection ~ 7800 5500
+Wire Wire Line
+	7800 5800 8050 5800
+Connection ~ 7800 5700
+Wire Wire Line
+	4750 5800 4950 5800
+Wire Wire Line
+	7650 4350 7650 4600
+Wire Wire Line
+	7650 4600 7900 4600
+$Comp
+L CONN_1 P8
+U 1 1 540ACFF1
+P 3750 3650
+F 0 "P8" H 3830 3650 40  0000 L CNN
+F 1 "CONN_1" H 3750 3705 30  0001 C CNN
+	1    3750 3650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L CONN_1 P9
+U 1 1 540ACFDE
+P 8050 4600
+F 0 "P9" H 8130 4600 40  0000 L CNN
+F 1 "CONN_1" H 8050 4655 30  0001 C CNN
+	1    8050 4600
+	1    0    0    -1  
+$EndComp
+Text Label 4950 5800 0    60   ~ 0
+miso/b1
+$Comp
+L CONN_1 P7
+U 1 1 540ACCF1
+P 8050 4400
+F 0 "P7" H 8130 4400 40  0000 L CNN
+F 1 "CONN_1" H 8050 4455 30  0001 C CNN
+	1    8050 4400
+	1    0    0    -1  
+$EndComp
+Text Label 3500 5800 0    60   ~ 0
+vcc
+$Comp
+L R R1
+U 1 1 540AB283
+P 3950 5800
+F 0 "R1" V 4030 5800 50  0000 C CNN
+F 1 "R" V 3950 5800 50  0000 C CNN
+	1    3950 5800
+	0    -1   -1   0   
+$EndComp
+$Comp
+L LED D1
+U 1 1 540AB27D
+P 4550 5800
+F 0 "D1" H 4550 5900 50  0000 C CNN
+F 1 "LED" H 4550 5700 50  0000 C CNN
+	1    4550 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_5 P6
+U 1 1 540AB26D
+P 8450 5600
+F 0 "P6" V 8400 5600 50  0000 C CNN
+F 1 "CONN_5" V 8500 5600 50  0000 C CNN
+	1    8450 5600
+	1    0    0    -1  
+$EndComp
+Text Label 7800 6000 0    60   ~ 0
+vcc
+Text Label 6700 6000 0    60   ~ 0
+vcc
+$Comp
+L CONN_5 P5
+U 1 1 540AB249
+P 7350 5600
+F 0 "P5" V 7300 5600 50  0000 C CNN
+F 1 "CONN_5" V 7400 5600 50  0000 C CNN
+	1    7350 5600
+	1    0    0    -1  
+$EndComp
+Text Label 7900 4400 2    60   ~ 0
+gnd
+Text Label 7900 3900 2    60   ~ 0
+vcc
+Text Label 5100 5150 2    60   ~ 0
+b4
+$Comp
+L CONN_1 P4
+U 1 1 540A2F9E
+P 4000 4400
+F 0 "P4" H 4080 4400 40  0000 L CNN
+F 1 "CONN_1" H 4000 4455 30  0001 C CNN
+	1    4000 4400
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_1 P3
+U 1 1 540A2F97
+P 4000 4300
+F 0 "P3" H 4080 4300 40  0000 L CNN
+F 1 "CONN_1" H 4000 4355 30  0001 C CNN
+	1    4000 4300
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_1 P2
+U 1 1 540A2F94
+P 4000 4000
+F 0 "P2" H 4080 4000 40  0000 L CNN
+F 1 "CONN_1" H 4000 4055 30  0001 C CNN
+	1    4000 4000
+	-1   0    0    1   
+$EndComp
+$Comp
+L CONN_1 P1
+U 1 1 540A2F87
+P 4000 3900
+F 0 "P1" H 4080 3900 40  0000 L CNN
+F 1 "CONN_1" H 4000 3955 30  0001 C CNN
+	1    4000 3900
+	-1   0    0    1   
+$EndComp
+Text Label 4150 4400 0    60   ~ 0
+rst
+Text Label 4150 4300 0    60   ~ 0
+b4
+Text Label 4150 4200 0    60   ~ 0
+b3
+Text Label 4150 4100 0    60   ~ 0
+sck/b2
+Text Label 4150 4000 0    60   ~ 0
+miso/b1
+Text Label 4150 3900 0    60   ~ 0
+mosi/b0
+Text Label 2700 4550 0    60   ~ 0
+gnd
+Text Label 2700 4100 0    60   ~ 0
+gnd
+$Comp
+L SW_PUSH SW2
+U 1 1 540A2E9E
+P 3400 4550
+F 0 "SW2" H 3550 4660 50  0000 C CNN
+F 1 "SW_PUSH" H 3400 4470 50  0000 C CNN
+	1    3400 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L SW_PUSH SW1
+U 1 1 540A2BAD
+P 3400 4100
+F 0 "SW1" H 3550 4210 50  0000 C CNN
+F 1 "SW_PUSH" H 3400 4020 50  0000 C CNN
+	1    3400 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C1
+U 1 1 540A2B99
+P 7650 4150
+F 0 "C1" H 7700 4250 50  0000 L CNN
+F 1 "100n" H 7700 4050 50  0000 L CNN
+	1    7650 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L PIEZO-ELEMENT-2_TERMINAL_REVE_DATE15JUN2010 XT1
+U 1 1 540A2B73
+P 4450 5150
+F 0 "XT1" H 4450 5300 30  0000 C CNN
+F 1 "PIEZO-ELEMENT-2_TERMINAL_REVE_DATE15JUN2010" H 4450 5000 30  0000 C CNN
+	1    4450 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L ATTINY25-S IC1
+U 1 1 540A2A3F
+P 4850 3800
+F 0 "IC1" H 4950 3850 60  0000 C CNN
+F 1 "ATTINY25-S" H 6850 3050 60  0000 C CNN
+F 2 "SO8-200" H 5100 3050 60  0001 C CNN
+	1    4850 3800
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

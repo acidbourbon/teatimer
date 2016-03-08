@@ -1,0 +1,41 @@
+<svg height="638.04" id="document_element" width="1126.512" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g transform="scale(12)">
+    <g transform="translate(-76.106,-9.662)">
+      <circle cx="86.106" cy="32.512" r="0.45" style="fill: red; stroke: none; stroke-width: 0.5" />
+      <circle cx="86.106" cy="35.052" r="0.45" style="stroke: none; stroke-width: 0.5; fill: red" />
+      <circle cx="86.106" cy="37.592" r="0.45" style="fill: red; stroke-width: 0.5; stroke: none" />
+      <circle cx="86.106" cy="40.132" r="0.45" style="stroke-width: 0.5; stroke: none; fill: red" />
+      <circle cx="86.106" cy="42.672" r="0.45" style="fill: red; stroke: none; stroke-width: 0.5" />
+      <circle cx="86.106" cy="45.212" r="0.45" style="stroke-width: 0.5; stroke: none; fill: red" />
+      <circle cx="86.106" cy="47.752" r="0.45" style="stroke-width: 0.5; stroke: none; fill: red" />
+      <circle cx="86.106" cy="50.292" r="0.45" style="fill: red; stroke: none; stroke-width: 0.5" />
+      <circle cx="86.106" cy="52.832" r="0.45" style="fill: red; stroke: none; stroke-width: 0.5" />
+      <circle cx="91.544" cy="32.662" r="0.45" style="fill: red; stroke-width: 0.5; stroke: none" />
+      <circle cx="104.544" cy="19.662" r="0.45" style="stroke-width: 0.5; stroke: none; fill: red" />
+      <circle cx="105.545" cy="33.663" r="0.45" style="fill: red; stroke: none; stroke-width: 0.5" />
+      <circle cx="109.982" cy="35.052" r="0.45" style="stroke: none; stroke-width: 0.5; fill: red" />
+      <circle cx="109.982" cy="37.592" r="0.45" style="stroke-width: 0.5; stroke: none; fill: red" />
+      <circle cx="109.982" cy="40.132" r="0.45" style="stroke: none; stroke-width: 0.5; fill: red" />
+      <circle cx="109.982" cy="42.672" r="0.45" style="stroke: none; stroke-width: 0.5; fill: red" />
+      <circle cx="109.982" cy="45.212" r="0.45" style="fill: red; stroke: none; stroke-width: 0.5" />
+      <circle cx="109.982" cy="47.752" r="0.45" style="fill: red; stroke: none; stroke-width: 0.5" />
+      <circle cx="109.982" cy="50.292" r="0.45" style="stroke-width: 0.5; stroke: none; fill: red" />
+      <circle cx="109.982" cy="52.832" r="0.45" style="fill: red; stroke: none; stroke-width: 0.5" />
+      <circle cx="87.376" cy="20.32" r="0.45" style="stroke-width: 0.5; stroke: none; fill: red" />
+      <circle cx="98.001" cy="45.001" r="0.45" style="fill: red; stroke: none; stroke-width: 0.5" />
+      <circle cx="98.044" cy="25.908" r="0.45" style="stroke-width: 0.5; stroke: none; fill: red" />
+      <circle cx="108.712" cy="20.32" r="0.45" style="stroke: none; stroke-width: 0.5; fill: red" />
+      <line style="stroke-width: 0.166666666666667; stroke: black; fill: none" x1="85.376" x2="89.376" y1="20.32" y2="20.32" />
+      <line style="fill: none; stroke-width: 0.166666666666667; stroke: black" x1="87.376" x2="87.376" y1="18.32" y2="22.32" />
+      <line style="fill: none; stroke-width: 0.166666666666667; stroke: black" x1="107.982" x2="111.982" y1="52.832" y2="52.832" />
+      <line style="fill: none; stroke-width: 0.166666666666667; stroke: black" x1="109.982" x2="109.982" y1="50.832" y2="54.832" />
+    </g>
+    <text style="font-size: 3px" x="53.876" y="5">1: 0.9 mm</text>
+    <circle cx="48.876" cy="5" r="0.45" style="fill: red; stroke-width: 0.5; stroke: none" />
+  </g>
+  <!-- 
+	Generated using the Perl SVG Module V2.59
+	by Ronan Oger
+	Info: http://www.roitsystems.com/
+ -->
+</svg>

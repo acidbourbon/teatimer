@@ -1,0 +1,1324 @@
+   1               		.file	"main.c"
+   2               	__SP_L__ = 0x3d
+   3               	__SREG__ = 0x3f
+   4               	__tmp_reg__ = 0
+   5               	__zero_reg__ = 1
+   6               		.text
+   7               	.Ltext0:
+   8               		.section	.text.led_on,"ax",@progbits
+   9               	.global	led_on
+  11               	led_on:
+  12               	.LFB6:
+  13               		.file 1 "main.c"
+   1:main.c        **** 
+   2:main.c        **** 
+   3:main.c        **** 
+   4:main.c        **** #include <avr/interrupt.h>
+   5:main.c        **** #include <avr/io.h> 
+   6:main.c        **** #include <util/delay.h>
+   7:main.c        **** #include <avr/sleep.h>
+   8:main.c        **** 
+   9:main.c        **** #include "tones.h"
+  10:main.c        **** 
+  11:main.c        **** 
+  12:main.c        **** #define SW1 PB2
+  13:main.c        **** #define SW2 PB3
+  14:main.c        **** #define LED PB1
+  15:main.c        **** #define BUZZ PB4
+  16:main.c        **** #define IOPORT PORTB
+  17:main.c        **** #define IOPIN  PINB
+  18:main.c        **** #define IODDR  DDRB
+  19:main.c        **** 
+  20:main.c        **** #define pause 0
+  21:main.c        **** 
+  22:main.c        **** #define KEY_DELAY 2
+  23:main.c        **** #define INC_COUNTER_SW1 60
+  24:main.c        **** #define INC_COUNTER_SW2 600
+  25:main.c        **** 
+  26:main.c        **** 
+  27:main.c        **** 
+  28:main.c        **** uint16_t countdown_seconds;
+  29:main.c        **** uint8_t key_delay_counter;
+  30:main.c        **** uint8_t armed;
+  31:main.c        **** 
+  32:main.c        **** 
+  33:main.c        **** void led_on(void){
+  14               		.loc 1 33 0
+  15               	/* prologue: function */
+  16               	/* frame size = 0 */
+  17               	/* stack size = 0 */
+  18               	.L__stack_usage = 0
+  34:main.c        ****   IOPORT &= ~(1<<LED);
+  19               		.loc 1 34 0
+  20 0000 C198      		cbi 0x18,1
+  21 0002 0895      		ret
+  22               	.LFE6:
+  24               		.section	.text.led_off,"ax",@progbits
+  25               	.global	led_off
+  27               	led_off:
+  28               	.LFB7:
+  35:main.c        **** }
+  36:main.c        **** void led_off(void){
+  29               		.loc 1 36 0
+  30               	/* prologue: function */
+  31               	/* frame size = 0 */
+  32               	/* stack size = 0 */
+  33               	.L__stack_usage = 0
+  37:main.c        ****   IOPORT |= (1<<LED);
+  34               		.loc 1 37 0
+  35 0000 C19A      		sbi 0x18,1
+  36 0002 0895      		ret
+  37               	.LFE7:
+  39               		.section	.text.__vector_10,"ax",@progbits
+  40               	.global	__vector_10
+  42               	__vector_10:
+  43               	.LFB8:
+  38:main.c        **** }
+  39:main.c        **** 
+  40:main.c        **** ISR(TIM0_COMPA_vect){
+  44               		.loc 1 40 0
+  45 0000 1F92      		push r1
+  46               	.LCFI0:
+  47 0002 0F92      		push r0
+  48               	.LCFI1:
+  49 0004 0FB6      		in r0,__SREG__
+  50 0006 0F92      		push r0
+  51 0008 1124      		clr __zero_reg__
+  52 000a 2F93      		push r18
+  53               	.LCFI2:
+  54 000c 3F93      		push r19
+  55               	.LCFI3:
+  56 000e 4F93      		push r20
+  57               	.LCFI4:
+  58 0010 5F93      		push r21
+  59               	.LCFI5:
+  60 0012 6F93      		push r22
+  61               	.LCFI6:
+  62 0014 7F93      		push r23
+  63               	.LCFI7:
+  64 0016 8F93      		push r24
+  65               	.LCFI8:
+  66 0018 9F93      		push r25
+  67               	.LCFI9:
+  68 001a AF93      		push r26
+  69               	.LCFI10:
+  70 001c BF93      		push r27
+  71               	.LCFI11:
+  72 001e EF93      		push r30
+  73               	.LCFI12:
+  74 0020 FF93      		push r31
+  75               	.LCFI13:
+  76               	/* prologue: Signal */
+  77               	/* frame size = 0 */
+  78               	/* stack size = 15 */
+  79               	.L__stack_usage = 15
+  41:main.c        ****   static uint8_t counter = 0;
+  42:main.c        ****   counter++;
+  80               		.loc 1 42 0
+  81 0022 8091 0000 		lds r24,counter.1525
+  82 0026 8F5F      		subi r24,lo8(-(1))
+  43:main.c        ****   if(counter >=125){
+  83               		.loc 1 43 0
+  84 0028 8D37      		cpi r24,lo8(125)
+  85 002a 00F4      		brsh .L4
+  42:main.c        ****   counter++;
+  86               		.loc 1 42 0
+  87 002c 8093 0000 		sts counter.1525,r24
+  88 0030 00C0      		rjmp .L5
+  89               	.L4:
+  44:main.c        ****     counter = 0;
+  90               		.loc 1 44 0
+  91 0032 1092 0000 		sts counter.1525,__zero_reg__
+  45:main.c        ****     if(countdown_seconds > 0){
+  92               		.loc 1 45 0
+  93 0036 8091 0000 		lds r24,countdown_seconds
+  94 003a 9091 0000 		lds r25,countdown_seconds+1
+  95 003e 0097      		sbiw r24,0
+  96 0040 01F0      		breq .L6
+  46:main.c        ****       countdown_seconds--;
+  97               		.loc 1 46 0
+  98 0042 0197      		sbiw r24,1
+  99 0044 9093 0000 		sts countdown_seconds+1,r25
+ 100 0048 8093 0000 		sts countdown_seconds,r24
+ 101               	.L6:
+  47:main.c        ****     }
+  48:main.c        ****     led_on();
+ 102               		.loc 1 48 0
+ 103 004c 00D0      		rcall led_on
+ 104               	.LVL0:
+ 105               	.L5:
+  49:main.c        ****   }
+  50:main.c        ****   
+  51:main.c        ****   if(counter == 2){
+ 106               		.loc 1 51 0
+ 107 004e 8091 0000 		lds r24,counter.1525
+ 108 0052 8230      		cpi r24,lo8(2)
+ 109 0054 01F4      		brne .L7
+  52:main.c        ****     led_off();
+ 110               		.loc 1 52 0
+ 111 0056 00D0      		rcall led_off
+ 112               	.LVL1:
+ 113               	.L7:
+  53:main.c        ****   }
+  54:main.c        ****   
+  55:main.c        ****   if(key_delay_counter){
+ 114               		.loc 1 55 0
+ 115 0058 8091 0000 		lds r24,key_delay_counter
+ 116 005c 8823      		tst r24
+ 117 005e 01F0      		breq .L3
+  56:main.c        ****     key_delay_counter--;
+ 118               		.loc 1 56 0
+ 119 0060 8150      		subi r24,lo8(-(-1))
+ 120 0062 8093 0000 		sts key_delay_counter,r24
+ 121               	.L3:
+ 122               	/* epilogue start */
+  57:main.c        ****   }
+  58:main.c        ****   
+  59:main.c        **** 
+  60:main.c        ****     
+  61:main.c        ****     
+  62:main.c        ****   
+  63:main.c        ****   
+  64:main.c        ****   
+  65:main.c        **** }
+ 123               		.loc 1 65 0
+ 124 0066 FF91      		pop r31
+ 125 0068 EF91      		pop r30
+ 126 006a BF91      		pop r27
+ 127 006c AF91      		pop r26
+ 128 006e 9F91      		pop r25
+ 129 0070 8F91      		pop r24
+ 130 0072 7F91      		pop r23
+ 131 0074 6F91      		pop r22
+ 132 0076 5F91      		pop r21
+ 133 0078 4F91      		pop r20
+ 134 007a 3F91      		pop r19
+ 135 007c 2F91      		pop r18
+ 136 007e 0F90      		pop r0
+ 137 0080 0FBE      		out __SREG__,r0
+ 138 0082 0F90      		pop r0
+ 139 0084 1F90      		pop r1
+ 140 0086 1895      		reti
+ 141               	.LFE8:
+ 143               		.section	.text.play,"ax",@progbits
+ 144               	.global	play
+ 146               	play:
+ 147               	.LFB10:
+  66:main.c        **** 
+  67:main.c        **** 
+  68:main.c        **** ISR(PCINT0_vect){
+  69:main.c        ****   
+  70:main.c        ****   if( key_delay_counter == 0){
+  71:main.c        ****     if( (IOPIN & (1<<SW1)) == 0){ //switch1 pressed
+  72:main.c        ****       armed = 1;
+  73:main.c        ****       countdown_seconds+=INC_COUNTER_SW1;
+  74:main.c        ****       play_coin();
+  75:main.c        ****     }
+  76:main.c        ****     if( (IOPIN & (1<<SW2)) == 0){ //switch1 pressed
+  77:main.c        ****       armed = 1;
+  78:main.c        ****       countdown_seconds+=INC_COUNTER_SW2;
+  79:main.c        ****       play_shroom();
+  80:main.c        ****     }
+  81:main.c        ****   }
+  82:main.c        ****   key_delay_counter = KEY_DELAY;
+  83:main.c        **** //   cancel_counter = 0;
+  84:main.c        **** }
+  85:main.c        **** 
+  86:main.c        **** void play(uint16_t note, uint8_t length) {
+ 148               		.loc 1 86 0
+ 149               	.LVL2:
+ 150               	/* prologue: function */
+ 151               	/* frame size = 0 */
+ 152               	/* stack size = 0 */
+ 153               	.L__stack_usage = 0
+ 154 0000 9C01      		movw r18,r24
+ 155 0002 862F      		mov r24,r22
+ 156               	.LVL3:
+  87:main.c        ****   
+  88:main.c        ****   if(note == 0){
+ 157               		.loc 1 88 0
+ 158 0004 2115      		cp r18,__zero_reg__
+ 159 0006 3105      		cpc r19,__zero_reg__
+ 160 0008 01F0      		breq .L21
+ 161               	.LBB15:
+  89:main.c        ****     for(uint16_t i=0; i< length; i++){
+  90:main.c        ****       for(uint16_t j=0; j<1000;j++){
+  91:main.c        ****         _delay_us(1);
+  92:main.c        ****       }
+  93:main.c        ****     }
+  94:main.c        ****   } else {
+  95:main.c        ****     for(uint16_t i=0; i< length*1000/note; i++){
+ 162               		.loc 1 95 0
+ 163 000a 90E0      		ldi r25,0
+ 164 000c 68EE      		ldi r22,lo8(-24)
+ 165 000e 73E0      		ldi r23,lo8(3)
+ 166               	.LVL4:
+ 167 0010 00D0      		rcall __mulhi3
+ 168               	.LVL5:
+ 169 0012 B901      		movw r22,r18
+ 170 0014 00D0      		rcall __udivmodhi4
+ 171 0016 80E0      		ldi r24,0
+ 172 0018 90E0      		ldi r25,0
+  96:main.c        ****       for(uint16_t j=0; j<note;j++){
+  97:main.c        ****         _delay_us(1);
+  98:main.c        ****       }
+  99:main.c        ****         IOPORT ^= 1<<BUZZ;
+ 173               		.loc 1 99 0
+ 174 001a E0E1      		ldi r30,lo8(16)
+ 175 001c 00C0      		rjmp .L17
+ 176               	.LVL6:
+ 177               	.L22:
+ 178               	.LBE15:
+ 179               	.LBB19:
+  89:main.c        ****     for(uint16_t i=0; i< length; i++){
+ 180               		.loc 1 89 0
+ 181 001e 48EE      		ldi r20,lo8(-24)
+ 182 0020 53E0      		ldi r21,lo8(3)
+ 183               	.L18:
+ 184               	.LVL7:
+ 185               	.LBB20:
+ 186               	.LBB21:
+ 187               	.LBB22:
+ 188               		.file 2 "/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h"
+   1:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
+   3:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
+   4:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    All rights reserved.
+   5:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+   6:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Redistribution and use in source and binary forms, with or without
+   7:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    modification, are permitted provided that the following conditions are met:
+   8:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+   9:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    * Redistributions of source code must retain the above copyright
+  10:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer.
+  11:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  12:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    * Redistributions in binary form must reproduce the above copyright
+  13:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer in
+  14:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****      the documentation and/or other materials provided with the
+  15:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****      distribution.
+  16:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  17:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    * Neither the name of the copyright holders nor the names of
+  18:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****      contributors may be used to endorse or promote products derived
+  19:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****      from this software without specific prior written permission.
+  20:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  21:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  25:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  32:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  33:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** /* $Id: delay.h.in 2251 2011-09-14 08:20:33Z joerg_wunsch $ */
+  34:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  35:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #ifndef _UTIL_DELAY_H_
+  36:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #define _UTIL_DELAY_H_ 1
+  37:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  38:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #ifndef __HAS_DELAY_CYCLES
+  39:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #define __HAS_DELAY_CYCLES 1
+  40:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #endif
+  41:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  42:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #include <inttypes.h>
+  43:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #include <util/delay_basic.h>
+  44:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #include <math.h>
+  45:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  46:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** /** \file */
+  47:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** /** \defgroup util_delay <util/delay.h>: Convenience functions for busy-wait delay loops
+  48:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     \code
+  49:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     #define F_CPU 1000000UL  // 1 MHz
+  50:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     //#define F_CPU 14.7456E6
+  51:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     #include <util/delay.h>
+  52:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     \endcode
+  53:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  54:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     \note As an alternative method, it is possible to pass the
+  55:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     F_CPU macro down to the compiler from the Makefile.
+  56:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     Obviously, in that case, no \c \#define statement should be
+  57:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     used.
+  58:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  59:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     The functions in this header file are wrappers around the basic
+  60:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     busy-wait functions from <util/delay_basic.h>.  They are meant as
+  61:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     convenience functions where actual time values can be specified
+  62:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     rather than a number of cycles to wait for.  The idea behind is
+  63:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     that compile-time constant expressions will be eliminated by
+  64:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     compiler optimization so floating-point expressions can be used
+  65:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     to calculate the number of delay cycles needed based on the CPU
+  66:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     frequency passed by the macro F_CPU.
+  67:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  68:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     \note In order for these functions to work as intended, compiler
+  69:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     optimizations <em>must</em> be enabled, and the delay time
+  70:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     <em>must</em> be an expression that is a known constant at
+  71:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     compile-time.  If these requirements are not met, the resulting
+  72:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     delay will be much longer (and basically unpredictable), and
+  73:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     applications that otherwise do not use floating-point calculations
+  74:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     will experience severe code bloat by the floating-point library
+  75:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     routines linked into the application.
+  76:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  77:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     The functions available allow the specification of microsecond, and
+  78:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     millisecond delays directly, using the application-supplied macro
+  79:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     F_CPU as the CPU clock frequency (in Hertz).
+  80:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  81:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** */
+  82:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  83:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #if !defined(__DOXYGEN__)
+  84:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** static inline void _delay_us(double __us) __attribute__((always_inline));
+  85:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** static inline void _delay_ms(double __ms) __attribute__((always_inline));
+  86:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #endif
+  87:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  88:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #ifndef F_CPU
+  89:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** /* prevent compiler error by supplying a default */
+  90:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** # warning "F_CPU not defined for <util/delay.h>"
+  91:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** # define F_CPU 1000000UL
+  92:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #endif
+  93:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  94:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #ifndef __OPTIMIZE__
+  95:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+  96:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #endif
+  97:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+  98:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+  99:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 100:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   __STDC_HOSTED__
+ 101:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #  include <math.h>
+ 102:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #endif
+ 103:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 104:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** /**
+ 105:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    \ingroup util_delay
+ 106:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 107:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Perform a delay of \c __ms milliseconds, using _delay_loop_2().
+ 108:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 109:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    The macro F_CPU is supposed to be defined to a
+ 110:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 111:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 112:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    The maximal possible delay is 262.14 ms / F_CPU in MHz.
+ 113:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 114:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    When the user request delay which exceed the maximum possible one,
+ 115:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    _delay_ms() provides a decreased resolution functionality. In this
+ 116:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    mode _delay_ms() will work with a resolution of 1/10 ms, providing
+ 117:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    delays up to 6.5535 seconds (independent from CPU frequency).  The
+ 118:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    user will not be informed about decreased resolution.
+ 119:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 120:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles(unsigned long)
+ 121:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    support, maximal possible delay is 4294967.295 ms/ F_CPU in MHz. For
+ 122:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    values greater than the maximal possible delay, overflows results in
+ 123:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    no delay i.e., 0ms.
+ 124:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 125:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Conversion of __us into clock cycles may not always result in integer.
+ 126:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    By default, the clock cycles rounded up to next integer. This ensures that
+ 127:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    the user gets atleast __us microseconds of delay.
+ 128:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 129:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Alternatively, user can define __DELAY_ROUND_DOWN__ and __DELAY_ROUND_CLOSEST__
+ 130:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    to round down and round to closest integer.
+ 131:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 132:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Note: The new implementation of _delay_ms(double __ms) with 
+ 133:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     __builtin_avr_delay_cycles(unsigned long) support is not backward compatible. 
+ 134:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    User can define __DELAY_BACKWARD_COMPATIBLE__ to get a backward compatible delay.
+ 135:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Also, the backward compatible
+ 136:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    algorithm will be chosen if the code is compiled in a <em>freestanding
+ 137:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    environment</em> (GCC option \c -ffreestanding), as the math functions
+ 138:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    required for rounding are not available to the compiler then.
+ 139:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 140:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****  */
+ 141:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** void
+ 142:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** _delay_ms(double __ms)
+ 143:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** {
+ 144:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	uint16_t __ticks;
+ 145:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	double __tmp ; 
+ 146:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 147:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 148:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   __STDC_HOSTED__
+ 149:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	uint32_t __ticks_dc;
+ 150:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 151:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e3) * __ms;
+ 152:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 153:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 154:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 155:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 156:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 157:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 158:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 159:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	#else
+ 160:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		//round up by default
+ 161:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+ 162:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	#endif
+ 163:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 164:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 165:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 166:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #else
+ 167:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 4e3) * __ms;
+ 168:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	if (__tmp < 1.0)
+ 169:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		__ticks = 1;
+ 170:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	else if (__tmp > 65535)
+ 171:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	{
+ 172:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		//	__ticks = requested delay in 1/10 ms
+ 173:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		__ticks = (uint16_t) (__ms * 10.0);
+ 174:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		while(__ticks)
+ 175:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		{
+ 176:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 			// wait 1/10 ms
+ 177:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 			_delay_loop_2(((F_CPU) / 4e3) / 10);
+ 178:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 			__ticks --;
+ 179:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		}
+ 180:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		return;
+ 181:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	}
+ 182:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	else
+ 183:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		__ticks = (uint16_t)__tmp;
+ 184:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	_delay_loop_2(__ticks);
+ 185:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #endif
+ 186:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** }
+ 187:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 188:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** /**
+ 189:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    \ingroup util_delay
+ 190:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 191:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Perform a delay of \c __us microseconds, using _delay_loop_1().
+ 192:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 193:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    The macro F_CPU is supposed to be defined to a
+ 194:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 195:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 196:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    The maximal possible delay is 768 us / F_CPU in MHz.
+ 197:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 198:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    If the user requests a delay greater than the maximal possible one,
+ 199:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    _delay_us() will automatically call _delay_ms() instead.  The user
+ 200:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    will not be informed about this case.
+ 201:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 202:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles(unsigned long)
+ 203:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    support, maximal possible delay is 4294967.295 us/ F_CPU in MHz. For
+ 204:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    values greater than the maximal possible delay, overflow results in
+ 205:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    no delay i.e., 0us.
+ 206:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   
+ 207:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Conversion of __us into clock cycles may not always result in integer.
+ 208:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    By default, the clock cycles rounded up to next integer. This ensures that
+ 209:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    the user gets atleast __us microseconds of delay.
+ 210:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 211:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Alternatively, user can define __DELAY_ROUND_DOWN__ and __DELAY_ROUND_CLOSEST__
+ 212:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    to round down and round to closest integer.
+ 213:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****  
+ 214:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Note: The new implementation of _delay_us(double __us) with 
+ 215:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****     __builtin_avr_delay_cycles(unsigned long) support is not backward compatible.
+ 216:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    User can define __DELAY_BACKWARD_COMPATIBLE__ to get a backward compatible delay.
+ 217:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    Also, the backward compatible
+ 218:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    algorithm will be chosen if the code is compiled in a <em>freestanding
+ 219:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    environment</em> (GCC option \c -ffreestanding), as the math functions
+ 220:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****    required for rounding are not available to the compiler then.
+ 221:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 222:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****  */
+ 223:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** void
+ 224:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** _delay_us(double __us)
+ 225:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** {
+ 226:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	uint8_t __ticks;
+ 227:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	double __tmp ; 
+ 228:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 229:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 230:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h ****   __STDC_HOSTED__
+ 231:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	uint32_t __ticks_dc;
+ 232:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 233:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e6) * __us;
+ 234:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 235:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 236:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 237:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 238:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 239:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 240:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 241:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	#else
+ 242:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		//round up by default
+ 243:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+ 244:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	#endif
+ 245:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 
+ 246:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 189               		.loc 2 246 0
+ 190 0022 0000      		nop
+ 191               	.LVL8:
+ 192 0024 4150      		subi r20,1
+ 193 0026 5109      		sbc r21,__zero_reg__
+ 194               	.LBE22:
+ 195               	.LBE21:
+  90:main.c        ****       for(uint16_t j=0; j<1000;j++){
+ 196               		.loc 1 90 0
+ 197 0028 01F4      		brne .L18
+ 198               	.LBE20:
+  89:main.c        ****     for(uint16_t i=0; i< length; i++){
+ 199               		.loc 1 89 0
+ 200 002a 2F5F      		subi r18,-1
+ 201 002c 3F4F      		sbci r19,-1
+ 202               	.LVL9:
+ 203 002e 00C0      		rjmp .L16
+ 204               	.LVL10:
+ 205               	.L21:
+ 206               	.LBE19:
+  88:main.c        ****   if(note == 0){
+ 207               		.loc 1 88 0
+ 208 0030 20E0      		ldi r18,0
+ 209 0032 30E0      		ldi r19,0
+ 210               	.LVL11:
+ 211               	.LBB23:
+  89:main.c        ****     for(uint16_t i=0; i< length; i++){
+ 212               		.loc 1 89 0
+ 213 0034 862F      		mov r24,r22
+ 214 0036 90E0      		ldi r25,0
+ 215               	.L16:
+ 216               	.LVL12:
+  89:main.c        ****     for(uint16_t i=0; i< length; i++){
+ 217               		.loc 1 89 0 is_stmt 0 discriminator 1
+ 218 0038 2817      		cp r18,r24
+ 219 003a 3907      		cpc r19,r25
+ 220 003c 00F0      		brlo .L22
+ 221 003e 0895      		ret
+ 222               	.LVL13:
+ 223               	.L23:
+ 224               	.LBE23:
+ 225               	.LBB24:
+  95:main.c        ****     for(uint16_t i=0; i< length*1000/note; i++){
+ 226               		.loc 1 95 0 is_stmt 1
+ 227 0040 40E0      		ldi r20,0
+ 228 0042 50E0      		ldi r21,0
+ 229               	.L19:
+ 230               	.LVL14:
+ 231               	.LBB16:
+ 232               	.LBB17:
+ 233               	.LBB18:
+ 234               		.loc 2 246 0
+ 235 0044 0000      		nop
+ 236               	.LBE18:
+ 237               	.LBE17:
+  96:main.c        ****       for(uint16_t j=0; j<note;j++){
+ 238               		.loc 1 96 0
+ 239 0046 4F5F      		subi r20,-1
+ 240 0048 5F4F      		sbci r21,-1
+ 241               	.LVL15:
+ 242 004a 4217      		cp r20,r18
+ 243 004c 5307      		cpc r21,r19
+ 244 004e 01F4      		brne .L19
+ 245               	.LBE16:
+ 246               		.loc 1 99 0
+ 247 0050 48B3      		in r20,0x18
+ 248               	.LVL16:
+ 249 0052 4E27      		eor r20,r30
+ 250 0054 48BB      		out 0x18,r20
+  95:main.c        ****     for(uint16_t i=0; i< length*1000/note; i++){
+ 251               		.loc 1 95 0
+ 252 0056 0196      		adiw r24,1
+ 253               	.LVL17:
+ 254               	.L17:
+  95:main.c        ****     for(uint16_t i=0; i< length*1000/note; i++){
+ 255               		.loc 1 95 0 is_stmt 0 discriminator 1
+ 256 0058 8617      		cp r24,r22
+ 257 005a 9707      		cpc r25,r23
+ 258 005c 01F4      		brne .L23
+ 259 005e 0895      		ret
+ 260               	.LBE24:
+ 261               	.LFE10:
+ 263               		.section	.text.play_bigben,"ax",@progbits
+ 264               	.global	play_bigben
+ 266               	play_bigben:
+ 267               	.LFB11:
+ 100:main.c        ****     }
+ 101:main.c        ****   }
+ 102:main.c        **** }
+ 103:main.c        **** 
+ 104:main.c        **** 
+ 105:main.c        **** void play_bigben(void){
+ 268               		.loc 1 105 0 is_stmt 1
+ 269               	/* prologue: function */
+ 270               	/* frame size = 0 */
+ 271               	/* stack size = 0 */
+ 272               	.L__stack_usage = 0
+ 273               	.LVL18:
+ 106:main.c        ****   const uint8_t length=40;
+ 107:main.c        ****   play(e4,length);
+ 274               		.loc 1 107 0
+ 275 0000 68E2      		ldi r22,lo8(40)
+ 276 0002 8EE5      		ldi r24,lo8(94)
+ 277 0004 90E0      		ldi r25,0
+ 278 0006 00D0      		rcall play
+ 279               	.LVL19:
+ 108:main.c        ****   play(c4,length);
+ 280               		.loc 1 108 0
+ 281 0008 68E2      		ldi r22,lo8(40)
+ 282 000a 87E7      		ldi r24,lo8(119)
+ 283 000c 90E0      		ldi r25,0
+ 284 000e 00D0      		rcall play
+ 285               	.LVL20:
+ 109:main.c        ****   play(d4,length);
+ 286               		.loc 1 109 0
+ 287 0010 68E2      		ldi r22,lo8(40)
+ 288 0012 8AE6      		ldi r24,lo8(106)
+ 289 0014 90E0      		ldi r25,0
+ 290 0016 00D0      		rcall play
+ 291               	.LVL21:
+ 110:main.c        ****   play(g3,length);
+ 292               		.loc 1 110 0
+ 293 0018 68E2      		ldi r22,lo8(40)
+ 294 001a 8FE9      		ldi r24,lo8(-97)
+ 295 001c 90E0      		ldi r25,0
+ 296 001e 00D0      		rcall play
+ 297               	.LVL22:
+ 111:main.c        ****   play(pause,length);
+ 298               		.loc 1 111 0
+ 299 0020 68E2      		ldi r22,lo8(40)
+ 300 0022 80E0      		ldi r24,0
+ 301 0024 90E0      		ldi r25,0
+ 302 0026 00D0      		rcall play
+ 303               	.LVL23:
+ 112:main.c        ****   play(g3,length);
+ 304               		.loc 1 112 0
+ 305 0028 68E2      		ldi r22,lo8(40)
+ 306 002a 8FE9      		ldi r24,lo8(-97)
+ 307 002c 90E0      		ldi r25,0
+ 308 002e 00D0      		rcall play
+ 309               	.LVL24:
+ 113:main.c        ****   play(d4,length);
+ 310               		.loc 1 113 0
+ 311 0030 68E2      		ldi r22,lo8(40)
+ 312 0032 8AE6      		ldi r24,lo8(106)
+ 313 0034 90E0      		ldi r25,0
+ 314 0036 00D0      		rcall play
+ 315               	.LVL25:
+ 114:main.c        ****   play(e4,length);
+ 316               		.loc 1 114 0
+ 317 0038 68E2      		ldi r22,lo8(40)
+ 318 003a 8EE5      		ldi r24,lo8(94)
+ 319 003c 90E0      		ldi r25,0
+ 320 003e 00D0      		rcall play
+ 321               	.LVL26:
+ 115:main.c        ****   play(c4,length);
+ 322               		.loc 1 115 0
+ 323 0040 68E2      		ldi r22,lo8(40)
+ 324 0042 87E7      		ldi r24,lo8(119)
+ 325 0044 90E0      		ldi r25,0
+ 326 0046 00C0      		rjmp play
+ 327               	.LVL27:
+ 328               	.LFE11:
+ 330               		.section	.text.play_coin,"ax",@progbits
+ 331               	.global	play_coin
+ 333               	play_coin:
+ 334               	.LFB12:
+ 116:main.c        **** }
+ 117:main.c        **** 
+ 118:main.c        **** void play_coin(void){
+ 335               		.loc 1 118 0
+ 336               	/* prologue: function */
+ 337               	/* frame size = 0 */
+ 338               	/* stack size = 0 */
+ 339               	.L__stack_usage = 0
+ 340               	.LVL28:
+ 119:main.c        ****   const uint8_t length=10;
+ 120:main.c        ****   play(g4,length);
+ 341               		.loc 1 120 0
+ 342 0000 6AE0      		ldi r22,lo8(10)
+ 343 0002 8FE4      		ldi r24,lo8(79)
+ 344 0004 90E0      		ldi r25,0
+ 345 0006 00D0      		rcall play
+ 346               	.LVL29:
+ 121:main.c        ****   play(c5,length);
+ 347               		.loc 1 121 0
+ 348 0008 6AE0      		ldi r22,lo8(10)
+ 349 000a 8BE3      		ldi r24,lo8(59)
+ 350 000c 90E0      		ldi r25,0
+ 351 000e 00C0      		rjmp play
+ 352               	.LVL30:
+ 353               	.LFE12:
+ 355               		.section	.text.play_shroom,"ax",@progbits
+ 356               	.global	play_shroom
+ 358               	play_shroom:
+ 359               	.LFB13:
+ 122:main.c        **** }
+ 123:main.c        **** 
+ 124:main.c        **** void play_shroom(void){
+ 360               		.loc 1 124 0
+ 361               	/* prologue: function */
+ 362               	/* frame size = 0 */
+ 363               	/* stack size = 0 */
+ 364               	.L__stack_usage = 0
+ 365               	.LVL31:
+ 125:main.c        ****   const uint8_t length=10;
+ 126:main.c        ****   play(c4,length);
+ 366               		.loc 1 126 0
+ 367 0000 6AE0      		ldi r22,lo8(10)
+ 368 0002 87E7      		ldi r24,lo8(119)
+ 369 0004 90E0      		ldi r25,0
+ 370 0006 00D0      		rcall play
+ 371               	.LVL32:
+ 127:main.c        ****   play(e4,length);
+ 372               		.loc 1 127 0
+ 373 0008 6AE0      		ldi r22,lo8(10)
+ 374 000a 8EE5      		ldi r24,lo8(94)
+ 375 000c 90E0      		ldi r25,0
+ 376 000e 00D0      		rcall play
+ 377               	.LVL33:
+ 128:main.c        ****   play(g4,length);
+ 378               		.loc 1 128 0
+ 379 0010 6AE0      		ldi r22,lo8(10)
+ 380 0012 8FE4      		ldi r24,lo8(79)
+ 381 0014 90E0      		ldi r25,0
+ 382 0016 00D0      		rcall play
+ 383               	.LVL34:
+ 129:main.c        ****   play(c5,length);
+ 384               		.loc 1 129 0
+ 385 0018 6AE0      		ldi r22,lo8(10)
+ 386 001a 8BE3      		ldi r24,lo8(59)
+ 387 001c 90E0      		ldi r25,0
+ 388 001e 00C0      		rjmp play
+ 389               	.LVL35:
+ 390               	.LFE13:
+ 392               		.section	.text.__vector_2,"ax",@progbits
+ 393               	.global	__vector_2
+ 395               	__vector_2:
+ 396               	.LFB9:
+  68:main.c        **** ISR(PCINT0_vect){
+ 397               		.loc 1 68 0
+ 398 0000 1F92      		push r1
+ 399               	.LCFI14:
+ 400 0002 0F92      		push r0
+ 401               	.LCFI15:
+ 402 0004 0FB6      		in r0,__SREG__
+ 403 0006 0F92      		push r0
+ 404 0008 1124      		clr __zero_reg__
+ 405 000a 2F93      		push r18
+ 406               	.LCFI16:
+ 407 000c 3F93      		push r19
+ 408               	.LCFI17:
+ 409 000e 4F93      		push r20
+ 410               	.LCFI18:
+ 411 0010 5F93      		push r21
+ 412               	.LCFI19:
+ 413 0012 6F93      		push r22
+ 414               	.LCFI20:
+ 415 0014 7F93      		push r23
+ 416               	.LCFI21:
+ 417 0016 8F93      		push r24
+ 418               	.LCFI22:
+ 419 0018 9F93      		push r25
+ 420               	.LCFI23:
+ 421 001a AF93      		push r26
+ 422               	.LCFI24:
+ 423 001c BF93      		push r27
+ 424               	.LCFI25:
+ 425 001e EF93      		push r30
+ 426               	.LCFI26:
+ 427 0020 FF93      		push r31
+ 428               	.LCFI27:
+ 429               	/* prologue: Signal */
+ 430               	/* frame size = 0 */
+ 431               	/* stack size = 15 */
+ 432               	.L__stack_usage = 15
+  70:main.c        ****   if( key_delay_counter == 0){
+ 433               		.loc 1 70 0
+ 434 0022 8091 0000 		lds r24,key_delay_counter
+ 435 0026 8111      		cpse r24,__zero_reg__
+ 436 0028 00C0      		rjmp .L31
+  71:main.c        ****     if( (IOPIN & (1<<SW1)) == 0){ //switch1 pressed
+ 437               		.loc 1 71 0
+ 438 002a B299      		sbic 0x16,2
+ 439 002c 00C0      		rjmp .L32
+ 440               	.LBB25:
+  72:main.c        ****       armed = 1;
+ 441               		.loc 1 72 0
+ 442 002e 81E0      		ldi r24,lo8(1)
+ 443 0030 8093 0000 		sts armed,r24
+  73:main.c        ****       countdown_seconds+=INC_COUNTER_SW1;
+ 444               		.loc 1 73 0
+ 445 0034 8091 0000 		lds r24,countdown_seconds
+ 446 0038 9091 0000 		lds r25,countdown_seconds+1
+ 447 003c CC96      		adiw r24,60
+ 448 003e 9093 0000 		sts countdown_seconds+1,r25
+ 449 0042 8093 0000 		sts countdown_seconds,r24
+  74:main.c        ****       play_coin();
+ 450               		.loc 1 74 0
+ 451 0046 00D0      		rcall play_coin
+ 452               	.LVL36:
+ 453               	.L32:
+ 454               	.LBE25:
+  76:main.c        ****     if( (IOPIN & (1<<SW2)) == 0){ //switch1 pressed
+ 455               		.loc 1 76 0
+ 456 0048 B399      		sbic 0x16,3
+ 457 004a 00C0      		rjmp .L31
+ 458               	.LBB26:
+  77:main.c        ****       armed = 1;
+ 459               		.loc 1 77 0
+ 460 004c 81E0      		ldi r24,lo8(1)
+ 461 004e 8093 0000 		sts armed,r24
+  78:main.c        ****       countdown_seconds+=INC_COUNTER_SW2;
+ 462               		.loc 1 78 0
+ 463 0052 8091 0000 		lds r24,countdown_seconds
+ 464 0056 9091 0000 		lds r25,countdown_seconds+1
+ 465 005a 885A      		subi r24,-88
+ 466 005c 9D4F      		sbci r25,-3
+ 467 005e 9093 0000 		sts countdown_seconds+1,r25
+ 468 0062 8093 0000 		sts countdown_seconds,r24
+  79:main.c        ****       play_shroom();
+ 469               		.loc 1 79 0
+ 470 0066 00D0      		rcall play_shroom
+ 471               	.LVL37:
+ 472               	.L31:
+ 473               	.LBE26:
+  82:main.c        ****   key_delay_counter = KEY_DELAY;
+ 474               		.loc 1 82 0
+ 475 0068 82E0      		ldi r24,lo8(2)
+ 476 006a 8093 0000 		sts key_delay_counter,r24
+ 477               	/* epilogue start */
+  84:main.c        **** }
+ 478               		.loc 1 84 0
+ 479 006e FF91      		pop r31
+ 480 0070 EF91      		pop r30
+ 481 0072 BF91      		pop r27
+ 482 0074 AF91      		pop r26
+ 483 0076 9F91      		pop r25
+ 484 0078 8F91      		pop r24
+ 485 007a 7F91      		pop r23
+ 486 007c 6F91      		pop r22
+ 487 007e 5F91      		pop r21
+ 488 0080 4F91      		pop r20
+ 489 0082 3F91      		pop r19
+ 490 0084 2F91      		pop r18
+ 491 0086 0F90      		pop r0
+ 492 0088 0FBE      		out __SREG__,r0
+ 493 008a 0F90      		pop r0
+ 494 008c 1F90      		pop r1
+ 495 008e 1895      		reti
+ 496               	.LFE9:
+ 498               		.section	.text.play_cancel,"ax",@progbits
+ 499               	.global	play_cancel
+ 501               	play_cancel:
+ 502               	.LFB14:
+ 130:main.c        **** }
+ 131:main.c        **** 
+ 132:main.c        **** void play_cancel(void){
+ 503               		.loc 1 132 0
+ 504               	/* prologue: function */
+ 505               	/* frame size = 0 */
+ 506               	/* stack size = 0 */
+ 507               	.L__stack_usage = 0
+ 508               	.LVL38:
+ 133:main.c        ****   const uint8_t length=20;
+ 134:main.c        ****   play(g2,length);
+ 509               		.loc 1 134 0
+ 510 0000 64E1      		ldi r22,lo8(20)
+ 511 0002 8EE3      		ldi r24,lo8(62)
+ 512 0004 91E0      		ldi r25,lo8(1)
+ 513 0006 00D0      		rcall play
+ 514               	.LVL39:
+ 135:main.c        ****   play(pause,length/4);
+ 515               		.loc 1 135 0
+ 516 0008 65E0      		ldi r22,lo8(5)
+ 517 000a 80E0      		ldi r24,0
+ 518 000c 90E0      		ldi r25,0
+ 519 000e 00D0      		rcall play
+ 520               	.LVL40:
+ 136:main.c        ****   play(g2,length);
+ 521               		.loc 1 136 0
+ 522 0010 64E1      		ldi r22,lo8(20)
+ 523 0012 8EE3      		ldi r24,lo8(62)
+ 524 0014 91E0      		ldi r25,lo8(1)
+ 525 0016 00C0      		rjmp play
+ 526               	.LVL41:
+ 527               	.LFE14:
+ 529               		.section	.text.init_io,"ax",@progbits
+ 530               	.global	init_io
+ 532               	init_io:
+ 533               	.LFB15:
+ 137:main.c        **** }
+ 138:main.c        ****   
+ 139:main.c        ****   
+ 140:main.c        **** void init_io(void){
+ 534               		.loc 1 140 0
+ 535               	/* prologue: function */
+ 536               	/* frame size = 0 */
+ 537               	/* stack size = 0 */
+ 538               	.L__stack_usage = 0
+ 141:main.c        ****   IODDR |= (1<<LED) | (1<<BUZZ); //LED and Buzzer pins are outputs
+ 539               		.loc 1 141 0
+ 540 0000 87B3      		in r24,0x17
+ 541 0002 8261      		ori r24,lo8(18)
+ 542 0004 87BB      		out 0x17,r24
+ 142:main.c        ****   IOPORT |= (1<<SW1)|(1<<SW2); // pullups on Switch 1 and 2
+ 543               		.loc 1 142 0
+ 544 0006 88B3      		in r24,0x18
+ 545 0008 8C60      		ori r24,lo8(12)
+ 546 000a 88BB      		out 0x18,r24
+ 547 000c 0895      		ret
+ 548               	.LFE15:
+ 550               		.section	.text.init_timer,"ax",@progbits
+ 551               	.global	init_timer
+ 553               	init_timer:
+ 554               	.LFB16:
+ 143:main.c        **** }
+ 144:main.c        **** 
+ 145:main.c        **** 
+ 146:main.c        **** 
+ 147:main.c        **** void init_timer(void) {
+ 555               		.loc 1 147 0
+ 556               	/* prologue: function */
+ 557               	/* frame size = 0 */
+ 558               	/* stack size = 0 */
+ 559               	.L__stack_usage = 0
+ 148:main.c        ****   TCCR0A = (1<<WGM01)|(0<<WGM00)|(0<<COM0B1)|(0<<COM0B0);// WGM01=1: clear timer on compare match
+ 560               		.loc 1 148 0
+ 561 0000 82E0      		ldi r24,lo8(2)
+ 562 0002 8ABD      		out 0x2a,r24
+ 149:main.c        ****   TCCR0B = (0<<WGM02)|(0<<CS02) | (1<<CS01)| (1<<CS00); // clock scaler = 64
+ 563               		.loc 1 149 0
+ 564 0004 83E0      		ldi r24,lo8(3)
+ 565 0006 83BF      		out 0x33,r24
+ 150:main.c        ****   TIMSK  = (0<<TOIE0)|(1<<OCIE0A); // compare match interrupt enabled
+ 566               		.loc 1 150 0
+ 567 0008 80E1      		ldi r24,lo8(16)
+ 568 000a 89BF      		out 0x39,r24
+ 151:main.c        ****   // TOIE0 = 1 : overflow interrupt enabled for timer0
+ 152:main.c        ****   // OCIE0A = 1 : compare match interrupt enabled for timer0
+ 153:main.c        ****   OCR0A  = 125; // count to 250, because it's 1000/4
+ 569               		.loc 1 153 0
+ 570 000c 8DE7      		ldi r24,lo8(125)
+ 571 000e 89BD      		out 0x29,r24
+ 572 0010 0895      		ret
+ 573               	.LFE16:
+ 575               		.section	.text.disable_timer,"ax",@progbits
+ 576               	.global	disable_timer
+ 578               	disable_timer:
+ 579               	.LFB17:
+ 154:main.c        ****   
+ 155:main.c        **** }
+ 156:main.c        **** 
+ 157:main.c        **** void disable_timer(void){
+ 580               		.loc 1 157 0
+ 581               	/* prologue: function */
+ 582               	/* frame size = 0 */
+ 583               	/* stack size = 0 */
+ 584               	.L__stack_usage = 0
+ 158:main.c        ****   TIMSK  = (0<<TOIE0)|(0<<OCIE0A); // compare match interrupt disabled
+ 585               		.loc 1 158 0
+ 586 0000 19BE      		out 0x39,__zero_reg__
+ 587 0002 0895      		ret
+ 588               	.LFE17:
+ 590               		.section	.text.init_button_interrupt,"ax",@progbits
+ 591               	.global	init_button_interrupt
+ 593               	init_button_interrupt:
+ 594               	.LFB18:
+ 159:main.c        **** }
+ 160:main.c        **** 
+ 161:main.c        **** void init_button_interrupt(void) {
+ 595               		.loc 1 161 0
+ 596               	/* prologue: function */
+ 597               	/* frame size = 0 */
+ 598               	/* stack size = 0 */
+ 599               	.L__stack_usage = 0
+ 162:main.c        ****   
+ 163:main.c        ****   GIMSK |= (1<<PCIE); // enable pin changed interrupt 
+ 600               		.loc 1 163 0
+ 601 0000 8BB7      		in r24,0x3b
+ 602 0002 8062      		ori r24,lo8(32)
+ 603 0004 8BBF      		out 0x3b,r24
+ 164:main.c        ****   PCMSK |= (1<<PCINT2)|(1<<PCINT3); // pin changed mask: enable PB2 and PB3 as interrupt sources
+ 604               		.loc 1 164 0
+ 605 0006 85B3      		in r24,0x15
+ 606 0008 8C60      		ori r24,lo8(12)
+ 607 000a 85BB      		out 0x15,r24
+ 608 000c 0895      		ret
+ 609               	.LFE18:
+ 611               		.section	.text.system_sleep,"ax",@progbits
+ 612               	.global	system_sleep
+ 614               	system_sleep:
+ 615               	.LFB19:
+ 165:main.c        ****   
+ 166:main.c        **** }
+ 167:main.c        **** 
+ 168:main.c        **** 
+ 169:main.c        **** void system_sleep() {
+ 616               		.loc 1 169 0
+ 617               	/* prologue: function */
+ 618               	/* frame size = 0 */
+ 619               	/* stack size = 0 */
+ 620               	.L__stack_usage = 0
+ 170:main.c        ****   
+ 171:main.c        ****   set_sleep_mode(SLEEP_MODE_PWR_DOWN); // sleep mode is set here
+ 621               		.loc 1 171 0
+ 622 0000 85B7      		in r24,0x35
+ 623 0002 877E      		andi r24,lo8(-25)
+ 624 0004 8061      		ori r24,lo8(16)
+ 625 0006 85BF      		out 0x35,r24
+ 172:main.c        ****   sleep_enable();
+ 626               		.loc 1 172 0
+ 627 0008 85B7      		in r24,0x35
+ 628 000a 8062      		ori r24,lo8(32)
+ 629 000c 85BF      		out 0x35,r24
+ 173:main.c        **** 
+ 174:main.c        ****   sleep_mode();                        // System actually sleeps here
+ 630               		.loc 1 174 0
+ 631 000e 85B7      		in r24,0x35
+ 632 0010 8062      		ori r24,lo8(32)
+ 633 0012 85BF      		out 0x35,r24
+ 634               	/* #APP */
+ 635               	 ;  174 "main.c" 1
+ 636 0014 8895      		sleep
+ 637               		
+ 638               	 ;  0 "" 2
+ 639               	/* #NOAPP */
+ 640 0016 85B7      		in r24,0x35
+ 641 0018 8F7D      		andi r24,lo8(-33)
+ 642 001a 85BF      		out 0x35,r24
+ 175:main.c        **** 
+ 176:main.c        ****   sleep_disable();                     // System continues execution here when watchdog timed out 
+ 643               		.loc 1 176 0
+ 644 001c 85B7      		in r24,0x35
+ 645 001e 8F7D      		andi r24,lo8(-33)
+ 646 0020 85BF      		out 0x35,r24
+ 647 0022 0895      		ret
+ 648               	.LFE19:
+ 650               		.section	.text.startup.main,"ax",@progbits
+ 651               	.global	main
+ 653               	main:
+ 654               	.LFB20:
+ 177:main.c        ****   
+ 178:main.c        **** }
+ 179:main.c        **** 
+ 180:main.c        **** 
+ 181:main.c        **** int main(void)
+ 182:main.c        **** {
+ 655               		.loc 1 182 0
+ 656               	/* prologue: function */
+ 657               	/* frame size = 0 */
+ 658               	/* stack size = 0 */
+ 659               	.L__stack_usage = 0
+ 183:main.c        ****   
+ 184:main.c        ****   countdown_seconds = 4;
+ 660               		.loc 1 184 0
+ 661 0000 84E0      		ldi r24,lo8(4)
+ 662 0002 90E0      		ldi r25,0
+ 663 0004 9093 0000 		sts countdown_seconds+1,r25
+ 664 0008 8093 0000 		sts countdown_seconds,r24
+ 185:main.c        ****   armed = 0;
+ 665               		.loc 1 185 0
+ 666 000c 1092 0000 		sts armed,__zero_reg__
+ 186:main.c        ****   key_delay_counter = 0;
+ 667               		.loc 1 186 0
+ 668 0010 1092 0000 		sts key_delay_counter,__zero_reg__
+ 187:main.c        ****     
+ 188:main.c        ****     
+ 189:main.c        ****   init_io();
+ 669               		.loc 1 189 0
+ 670 0014 00D0      		rcall init_io
+ 671               	.LVL42:
+ 190:main.c        ****   init_button_interrupt();
+ 672               		.loc 1 190 0
+ 673 0016 00D0      		rcall init_button_interrupt
+ 674               	.LVL43:
+ 191:main.c        ****   led_off();
+ 675               		.loc 1 191 0
+ 676 0018 00D0      		rcall led_off
+ 677               	.LVL44:
+ 192:main.c        ****   
+ 193:main.c        ****   sei();
+ 678               		.loc 1 193 0
+ 679               	/* #APP */
+ 680               	 ;  193 "main.c" 1
+ 681 001a 7894      		sei
+ 682               	 ;  0 "" 2
+ 683               	/* #NOAPP */
+ 684               	.L48:
+ 685               	.LBB27:
+ 194:main.c        ****     
+ 195:main.c        ****   while(1){
+ 196:main.c        ****     
+ 197:main.c        **** 
+ 198:main.c        ****     init_timer();
+ 686               		.loc 1 198 0
+ 687 001c 00D0      		rcall init_timer
+ 688               	.LVL45:
+ 689               	.LBB28:
+ 690               	.LBB29:
+ 164:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 691               		.loc 2 164 0
+ 692 001e 2FE3      		ldi r18,lo8(199999)
+ 693 0020 8DE0      		ldi r24,hi8(199999)
+ 694 0022 93E0      		ldi r25,hlo8(199999)
+ 695 0024 2150      		1: subi r18,1
+ 696 0026 8040      		sbci r24,0
+ 697 0028 9040      		sbci r25,0
+ 698 002a 01F4      		brne 1b
+ 699 002c 00C0      		rjmp .
+ 700 002e 0000      		nop
+ 199:main.c        ****     uint8_t cancel_counter = 0;
+ 701               		.loc 1 199 0
+ 702 0030 20E0      		ldi r18,0
+ 703 0032 00C0      		rjmp .L41
+ 704               	.LVL46:
+ 705               	.L45:
+ 706               	.LBE29:
+ 707               	.LBE28:
+ 200:main.c        ****     _delay_ms(1000);
+ 201:main.c        ****     
+ 202:main.c        ****     while(countdown_seconds && armed){ // do some stuff while you're ticking
+ 203:main.c        ****       
+ 204:main.c        ****       // poll the switches, disable countdown if pressed long ...
+ 205:main.c        ****       if( (IOPIN & (1<<SW1)) == 0 || (IOPIN & (1<<SW2)) == 0 ){ //any switch pressed??
+ 708               		.loc 1 205 0
+ 709 0034 B29B      		sbis 0x16,2
+ 710 0036 00C0      		rjmp .L42
+ 711               		.loc 1 205 0 is_stmt 0 discriminator 1
+ 712 0038 B399      		sbic 0x16,3
+ 713 003a 00C0      		rjmp .L50
+ 714               	.L42:
+ 206:main.c        ****         //if any button pressed, increase cancel_counter
+ 207:main.c        ****         cancel_counter++;
+ 715               		.loc 1 207 0 is_stmt 1
+ 716 003c 2F5F      		subi r18,lo8(-(1))
+ 717               	.LVL47:
+ 208:main.c        ****       } else {
+ 209:main.c        ****         cancel_counter = 0;
+ 210:main.c        ****       }
+ 211:main.c        ****       if(cancel_counter > 150) { // pressed for 1.5 sec?
+ 718               		.loc 1 211 0
+ 719 003e 2739      		cpi r18,lo8(-105)
+ 720 0040 00F0      		brlo .L43
+ 721               	.LVL48:
+ 212:main.c        ****         cancel_counter = 0;
+ 213:main.c        ****         countdown_seconds = 0;
+ 722               		.loc 1 213 0
+ 723 0042 1092 0000 		sts countdown_seconds+1,__zero_reg__
+ 724 0046 1092 0000 		sts countdown_seconds,__zero_reg__
+ 214:main.c        ****         armed = 0;
+ 725               		.loc 1 214 0
+ 726 004a 1092 0000 		sts armed,__zero_reg__
+ 727               	.LVL49:
+ 728               	.L50:
+ 209:main.c        ****         cancel_counter = 0;
+ 729               		.loc 1 209 0
+ 730 004e 20E0      		ldi r18,0
+ 731               	.L43:
+ 732               	.LVL50:
+ 733               	.LBB30:
+ 734               	.LBB31:
+ 164:/usr/lib/gcc/avr/4.7.2/../../../avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 735               		.loc 2 164 0
+ 736 0050 83EC      		ldi r24,lo8(2499)
+ 737 0052 99E0      		ldi r25,hi8(2499)
+ 738 0054 0197      		1: sbiw r24,1
+ 739 0056 01F4      		brne 1b
+ 740 0058 00C0      		rjmp .
+ 741 005a 0000      		nop
+ 742               	.LVL51:
+ 743               	.L41:
+ 744               	.LBE31:
+ 745               	.LBE30:
+ 202:main.c        ****     while(countdown_seconds && armed){ // do some stuff while you're ticking
+ 746               		.loc 1 202 0 discriminator 1
+ 747 005c 8091 0000 		lds r24,countdown_seconds
+ 748 0060 9091 0000 		lds r25,countdown_seconds+1
+ 749 0064 892B      		or r24,r25
+ 750 0066 01F0      		breq .L44
+ 202:main.c        ****     while(countdown_seconds && armed){ // do some stuff while you're ticking
+ 751               		.loc 1 202 0 is_stmt 0 discriminator 2
+ 752 0068 8091 0000 		lds r24,armed
+ 753 006c 8111      		cpse r24,__zero_reg__
+ 754 006e 00C0      		rjmp .L45
+ 755               	.L44:
+ 215:main.c        ****       }
+ 216:main.c        ****       _delay_ms(10);
+ 217:main.c        ****       
+ 218:main.c        ****     }
+ 219:main.c        ****     
+ 220:main.c        ****     
+ 221:main.c        ****    
+ 222:main.c        ****     disable_timer();
+ 756               		.loc 1 222 0 is_stmt 1
+ 757 0070 00D0      		rcall disable_timer
+ 758               	.LVL52:
+ 223:main.c        ****     if(armed){
+ 759               		.loc 1 223 0
+ 760 0072 8091 0000 		lds r24,armed
+ 761 0076 8823      		tst r24
+ 762 0078 01F0      		breq .L46
+ 224:main.c        ****       led_off();
+ 763               		.loc 1 224 0
+ 764 007a 00D0      		rcall led_off
+ 765               	.LVL53:
+ 225:main.c        ****       play_bigben();
+ 766               		.loc 1 225 0
+ 767 007c 00D0      		rcall play_bigben
+ 768               	.LVL54:
+ 769 007e 00C0      		rjmp .L58
+ 770               	.L46:
+ 226:main.c        ****     } else {
+ 227:main.c        ****       led_on();
+ 771               		.loc 1 227 0
+ 772 0080 00D0      		rcall led_on
+ 773               	.LVL55:
+ 228:main.c        ****       play_cancel();
+ 774               		.loc 1 228 0
+ 775 0082 00D0      		rcall play_cancel
+ 776               	.LVL56:
+ 229:main.c        ****       led_off();
+ 777               		.loc 1 229 0
+ 778 0084 00D0      		rcall led_off
+ 779               	.LVL57:
+ 780               	.L58:
+ 230:main.c        ****     }
+ 231:main.c        **** 
+ 232:main.c        ****     
+ 233:main.c        ****     while(1){
+ 234:main.c        ****       countdown_seconds = 0;
+ 781               		.loc 1 234 0
+ 782 0086 1092 0000 		sts countdown_seconds+1,__zero_reg__
+ 783 008a 1092 0000 		sts countdown_seconds,__zero_reg__
+ 235:main.c        ****       armed = 0;
+ 784               		.loc 1 235 0
+ 785 008e 1092 0000 		sts armed,__zero_reg__
+ 786               	.LVL58:
+ 236:main.c        ****       cancel_counter = 0;
+ 237:main.c        ****       key_delay_counter = 0;
+ 787               		.loc 1 237 0
+ 788 0092 1092 0000 		sts key_delay_counter,__zero_reg__
+ 238:main.c        ****       led_off();
+ 789               		.loc 1 238 0
+ 790 0096 00D0      		rcall led_off
+ 791               	.LVL59:
+ 239:main.c        ****       system_sleep();
+ 792               		.loc 1 239 0
+ 793 0098 00D0      		rcall system_sleep
+ 794               	.LVL60:
+ 240:main.c        ****       if(armed){break;}; //someone armed the clock again!
+ 795               		.loc 1 240 0
+ 796 009a 8091 0000 		lds r24,armed
+ 797 009e 8823      		tst r24
+ 798 00a0 01F0      		breq .L58
+ 799 00a2 00C0      		rjmp .L48
+ 800               	.LBE27:
+ 801               	.LFE20:
+ 803               		.comm	armed,1,1
+ 804               		.comm	key_delay_counter,1,1
+ 805               		.comm	countdown_seconds,2,1
+ 806               		.section	.bss.counter.1525,"aw",@nobits
+ 809               	counter.1525:
+ 810 0000 00        		.zero	1
+ 1117               	.Letext0:
+ 1118               		.file 3 "/usr/lib/gcc/avr/4.7.2/../../../avr/include/stdint.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/ccrhJhQo.s:2      *ABS*:000000000000003d __SP_L__
+     /tmp/ccrhJhQo.s:3      *ABS*:000000000000003f __SREG__
+     /tmp/ccrhJhQo.s:4      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccrhJhQo.s:5      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccrhJhQo.s:11     .text.led_on:0000000000000000 led_on
+     /tmp/ccrhJhQo.s:27     .text.led_off:0000000000000000 led_off
+     /tmp/ccrhJhQo.s:42     .text.__vector_10:0000000000000000 __vector_10
+     /tmp/ccrhJhQo.s:809    .bss.counter.1525:0000000000000000 counter.1525
+                            *COM*:0000000000000002 countdown_seconds
+                            *COM*:0000000000000001 key_delay_counter
+     /tmp/ccrhJhQo.s:146    .text.play:0000000000000000 play
+     /tmp/ccrhJhQo.s:266    .text.play_bigben:0000000000000000 play_bigben
+     /tmp/ccrhJhQo.s:333    .text.play_coin:0000000000000000 play_coin
+     /tmp/ccrhJhQo.s:358    .text.play_shroom:0000000000000000 play_shroom
+     /tmp/ccrhJhQo.s:395    .text.__vector_2:0000000000000000 __vector_2
+                            *COM*:0000000000000001 armed
+     /tmp/ccrhJhQo.s:501    .text.play_cancel:0000000000000000 play_cancel
+     /tmp/ccrhJhQo.s:532    .text.init_io:0000000000000000 init_io
+     /tmp/ccrhJhQo.s:553    .text.init_timer:0000000000000000 init_timer
+     /tmp/ccrhJhQo.s:578    .text.disable_timer:0000000000000000 disable_timer
+     /tmp/ccrhJhQo.s:593    .text.init_button_interrupt:0000000000000000 init_button_interrupt
+     /tmp/ccrhJhQo.s:614    .text.system_sleep:0000000000000000 system_sleep
+     /tmp/ccrhJhQo.s:653    .text.startup.main:0000000000000000 main
+
+UNDEFINED SYMBOLS
+__mulhi3
+__udivmodhi4
+__do_clear_bss

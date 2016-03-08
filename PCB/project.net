@@ -1,0 +1,109 @@
+# EESchema Netlist Version 1.1 created  Sa 06 Sep 2014 11:28:53 CEST
+(
+ ( /540A2B99 SM0603 C1 100n
+  ( 1 /vcc )
+  ( 2 /gnd )
+ )
+ ( /540AB27D SM0603 D1 LED
+  ( 1 N-000002 )
+  ( 2 /miso/b1 )
+ )
+ ( /540A2A3F SO8N IC1 ATTINY25-S
+  ( 1 /rst )
+  ( 2 /b3 )
+  ( 3 /b4 )
+  ( 4 /gnd )
+  ( 5 /mosi/b0 )
+  ( 6 /miso/b1 )
+  ( 7 /sck/b2 )
+  ( 8 /vcc )
+ )
+ ( /540A2F87 SIL-1 P1 CONN_1
+  ( 1 /mosi/b0 )
+ )
+ ( /540A2F94 SIL-1 P2 CONN_1
+  ( 1 /miso/b1 )
+ )
+ ( /540A2F97 SIL-1 P3 CONN_1
+  ( 1 /b4 )
+ )
+ ( /540A2F9E SIL-1 P4 CONN_1
+  ( 1 /rst )
+ )
+ ( /540AB249 SIL-5 P5 CONN_5
+  ( 1 /vcc )
+  ( 2 /vcc )
+  ( 3 /vcc )
+  ( 4 /vcc )
+  ( 5 /vcc )
+ )
+ ( /540AB26D SIL-5 P6 CONN_5
+  ( 1 /vcc )
+  ( 2 /vcc )
+  ( 3 /vcc )
+  ( 4 /vcc )
+  ( 5 /vcc )
+ )
+ ( /540ACCF1 1pin P7 CONN_1
+  ( 1 /gnd )
+ )
+ ( /540ACFF1 SIL-1 P8 CONN_1
+  ( 1 /sck/b2 )
+ )
+ ( /540ACFDE SIL-1 P9 CONN_1
+  ( 1 /gnd )
+ )
+ ( /540AD021 SIL-1 P10 CONN_1
+  ( 1 /vcc )
+ )
+ ( /540AD36C 1pin P11 CONN_1
+  ( 1 ? )
+ )
+ ( /540AD36B 1pin P12 CONN_1
+  ( 1 ? )
+ )
+ ( /540AD3B6 1pin P13 CONN_1
+  ( 1 ? )
+ )
+ ( /540AB283 SM0603 R1 R
+  ( 1 /vcc )
+  ( 2 N-000002 )
+ )
+ ( /540A2BAD PSHBT_SM2512 SW1 SW_PUSH
+  ( 1 /gnd )
+  ( 2 /sck/b2 )
+ )
+ ( /540A2E9E PSHBT_SM2512 SW2 SW_PUSH
+  ( 1 /gnd )
+  ( 2 /b3 )
+ )
+ ( /540A2B73 PIEZO_Pollin XT1 PIEZO-ELEMENT-2_TERMINAL_REVE_DATE15JUN2010
+  ( 1 /vcc )
+  ( 2 /b4 )
+ )
+)
+*
+{ Allowed footprints by component:
+$component C1
+ SM*
+ C?
+ C1-1
+$endlist
+$component D1
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$endfootprintlist
+}
